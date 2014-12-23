@@ -1,7 +1,7 @@
 " spacing
 set tabstop=4
 set softtabstop=2
-set noexpandtab
+set expandtab
 
 " wrapping
 set nowrap
@@ -13,6 +13,7 @@ set cursorline
 
 " mappings
 map ; :
+imap kj <Esc>
 
 " UTF-8 support
 set encoding=utf-8
