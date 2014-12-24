@@ -25,7 +25,7 @@ function parse_git_branch() {
 }
 
 function pwd_short() {
-  pwd | sed 's/\/Users\/tlehman/\~/'
+  pwd | sed 's/\/home\/tlehman/\~/'
 }
 
 function git_repo_dirty() {
