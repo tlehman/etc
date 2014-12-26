@@ -4,9 +4,12 @@ export CLICOLOR=yes
 export HISTSIZE=100000000 # 1e8 (10 million)
 export PATH=/Users/tlehman/bin:$PATH
 
+# bash completion
+source /usr/local/Cellar/rbenv/0.4.0/completions/rbenv.bash
+source /usr/local/etc/bash_completion.d/git-completion.bash
+
 # vm tools
 export VAGRANT_DEFAULT_PROVIDER=vmware_fusion
-export DOCKER_HOST=tcp://192.168.42.43:2375
 
 # aliases
 alias lsl="ls | grep '^[a-z]'"
