@@ -6,6 +6,9 @@ set expandtab
 " wrapping
 set nowrap
 
+" line numbers
+set number
+
 " coloring
 syntax on
 set hlsearch
