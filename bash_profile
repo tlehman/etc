@@ -33,7 +33,7 @@ function pwd_short() {
 }
 
 function git_repo_dirty() {
-  if [[ $(git s 2>/dev/null | grep 'modified:' | wc -l) -ge 1 ]]; then 
+  if [[ $(git s 2>/dev/null | egrep '(modified|new file):' | wc -l) -ge 1 ]]; then 
 	echo "*"
   elif [[ $(git s 2>/dev/null | grep 'working directory clean' | wc -l) -le 1 ]]; then
     echo ""
