@@ -1,10 +1,11 @@
 " UTF-8 support
 set encoding=utf-8
 
-" spacing
+" spacing & indentation
 set tabstop=4
 set softtabstop=2
 set expandtab
+set autoindent
 
 " wrapping
 set nowrap
