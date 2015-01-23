@@ -4,6 +4,7 @@ export CLICOLOR=yes
 export HISTSIZE=100000000 # 1e8 (10 million)
 export PATH=~/bin:~/.rbenv/shims:$PATH
 export GOPATH=~/go
+export GPG_TTY=`tty`
 
 # bash completion
 source /usr/local/Cellar/rbenv/0.4.0/completions/rbenv.bash
