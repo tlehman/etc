@@ -3,9 +3,12 @@ set encoding=utf-8
 
 " spacing & indentation
 set tabstop=4
-set softtabstop=2
+set softtabstop=4
 set expandtab
 set autoindent
+" language-specific indentation
+autocmd BufRead,BufNewFile   *.rb set softtabstop=2
+autocmd BufRead,BufNewFile   *.go set noexpandtab
 
 " wrapping
 set nowrap
