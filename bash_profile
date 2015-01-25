@@ -6,13 +6,14 @@ export PATH=~/bin:~/.rbenv/shims:$PATH
 export GOPATH=~/go
 export GPG_TTY=`tty`
 
-# bash completion
-source /usr/local/Cellar/rbenv/0.4.0/completions/rbenv.bash
-source /usr/local/etc/bash_completion.d/git-completion.bash
 
-# turn CAPS LOCK into Control on Linux
+# OS specific stuff
 if [ $(uname) = "Linux" ]; then
+    # turn CAPS LOCK into Control on Linux
     setxkbmap -layout us -option ctrl:nocaps
+elif [ $(uname) = "Darwin" ]; then
+    source /usr/local/Cellar/rbenv/0.4.0/completions/rbenv.bash
+    source /usr/local/etc/bash_completion.d/git-completion.bash
 fi
 
 # vm tools
