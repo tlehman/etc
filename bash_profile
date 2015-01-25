@@ -21,6 +21,7 @@ export VAGRANT_DEFAULT_PROVIDER=vmware_fusion
 
 # aliases
 alias lsl="ls | grep '^[a-z]'"
+alias ls3="ls | grep '^...$'"
 alias lsu="ls | grep '^[A-Z]'"
 
 # colors
