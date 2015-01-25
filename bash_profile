@@ -10,6 +10,11 @@ export GPG_TTY=`tty`
 source /usr/local/Cellar/rbenv/0.4.0/completions/rbenv.bash
 source /usr/local/etc/bash_completion.d/git-completion.bash
 
+# turn CAPS LOCK into Control on Linux
+if [ $(uname) = "Linux" ]; then
+    setxkbmap -layout us -option ctrl:nocaps
+fi
+
 # vm tools
 export VAGRANT_DEFAULT_PROVIDER=vmware_fusion
 
@@ -26,16 +31,16 @@ closecolor="\[\033[0m\]"
 
 # functions for command prompt
 function parse_git_branch() {
-  git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
 }
 
 function pwd_short() {
-  pwd | sed 's/\/home\/tlehman/\~/'
+    pwd | sed 's/\/home\/tlehman/\~/'
 }
 
 function git_repo_dirty() {
   if [[ $(git s 2>/dev/null | egrep '(modified|new file):' | wc -l) -ge 1 ]]; then 
-	echo "*"
+  	echo "*"
   elif [[ $(git s 2>/dev/null | grep 'working directory clean' | wc -l) -le 1 ]]; then
     echo ""
   fi
