@@ -37,7 +37,11 @@ function parse_git_branch() {
 }
 
 function pwd_short() {
-    pwd | sed 's/\/home\/tlehman/\~/'
+    if [ $(uname) = "Linux" ]; then
+        pwd | sed "s/\/home\/$(whoami)/\~/"
+    elif [ $(uname) = "Darwin" ]; then
+        pwd | sed "s/\/Users\/$(whoami)/\~/"
+    fi
 }
 
 function git_repo_dirty() {
