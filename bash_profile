@@ -2,11 +2,16 @@
 export EDITOR=vim
 export CLICOLOR=yes
 export HISTSIZE=100000000 # 1e8 (10 million)
-export PATH=/Users/tlehman/bin:$PATH
+export PATH=~/bin:~/.rbenv/shims:$PATH
+export GOPATH=~/go
+export GPG_TTY=`tty`
+
+# bash completion
+source /usr/local/Cellar/rbenv/0.4.0/completions/rbenv.bash
+source /usr/local/etc/bash_completion.d/git-completion.bash
 
 # vm tools
 export VAGRANT_DEFAULT_PROVIDER=vmware_fusion
-export DOCKER_HOST=tcp://192.168.42.43:2375
 
 # aliases
 alias lsl="ls | grep '^[a-z]'"
@@ -29,7 +34,7 @@ function pwd_short() {
 }
 
 function git_repo_dirty() {
-  if [[ $(git s 2>/dev/null | grep 'modified:' | wc -l) -ge 1 ]]; then 
+  if [[ $(git s 2>/dev/null | egrep '(modified|new file):' | wc -l) -ge 1 ]]; then 
 	echo "*"
   elif [[ $(git s 2>/dev/null | grep 'working directory clean' | wc -l) -le 1 ]]; then
     echo ""
