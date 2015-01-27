@@ -72,6 +72,9 @@ else
   " Find all files in all non-dot directories starting in the working directory.
   " Fuzzy select one of those. Open the selected file with :e.
   nnoremap ,t :call SelectaCommand("find * -type f", "", ":e")<cr>
+
+  " cursorline coloring in terminal vim
+  highlight CursorLine cterm=NONE ctermbg=234
 endif
 
 
