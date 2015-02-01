@@ -73,8 +73,19 @@ else
   " Fuzzy select one of those. Open the selected file with :e.
   nnoremap ,t :call SelectaCommand("find * -type f", "", ":e")<cr>
 
-  " cursorline coloring in terminal vim
-  highlight CursorLine cterm=NONE ctermbg=234
+
+  if has("unix")
+    let s:uname = system("uname")
+    if s:uname == "Darwin"
+      let os="mac"
+      " cursorline coloring in terminal vim
+      highlight CursorLine cterm=NONE ctermbg=234
+    else
+      let os="unix"
+      " cursorline coloring in terminal vim
+      highlight CursorLine cterm=NONE ctermbg=DarkGray
+    endif
+  endif
 endif
 
 
