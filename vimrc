@@ -6,9 +6,14 @@ set tabstop=4
 set softtabstop=4
 set expandtab
 set autoindent
+
 " language-specific indentation
 autocmd BufRead,BufNewFile   *.rb set softtabstop=2
 autocmd BufRead,BufNewFile   *.go set noexpandtab
+
+" leaders
+let mapleader=","
+let maplocalleader="\\"
 
 " wrapping
 set nowrap
@@ -27,16 +32,15 @@ set cursorline
 
 " mappings
 map ; :
-map ,b :buffers<CR>
+map <leader>b :buffers<CR>
 imap kj <Esc>
-
-" UTF-8 support
-set encoding=utf-8
 
 " if pathogen is there, execute it
 if filereadable(expand("~/.vim/autoload/pathogen.vim"))
+  " plugins currently used: clam.vim nerdtree vim-fugitive vim-go
   execute pathogen#infect()
 endif
+
 
 " fuzzy search using selecta(1)
 " Run a given vim command on the results of fuzzy selecting from a given shell
@@ -63,15 +67,15 @@ if has("gui_running")
   set guifont=Inconsolata:h14
 
   " copy filename of current buffer into system clipboard
-  map ,F :let @+ = expand("%:p")<cr>
-  map ,f :let @+ = expand("%")<cr>
+  map <leader>F :let @+ = expand("%:p")<cr>
+  map <leader>f :let @+ = expand("%")<cr>
 
   " resize Vsplits on window resize (vimbits)
   au VimResized * exe "normal! \<c-w>="
 else
   " Find all files in all non-dot directories starting in the working directory.
   " Fuzzy select one of those. Open the selected file with :e.
-  nnoremap ,t :call SelectaCommand("find * -type f", "", ":e")<cr>
+  nnoremap <leader>t :call SelectaCommand("find * -type f", "", ":e")<cr>
 
 
   if has("unix")

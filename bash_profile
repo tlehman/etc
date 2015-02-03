@@ -2,8 +2,8 @@
 export EDITOR=vim
 export CLICOLOR=yes
 export HISTSIZE=100000000 # 1e8 (10 million)
-export PATH=~/bin:~/.rbenv/shims:$PATH
 export GOPATH=~/go
+export PATH=~/bin:$GOPATH/bin:~/.rbenv/shims:$PATH
 export GPG_TTY=`tty`
 
 
