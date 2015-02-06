@@ -33,6 +33,8 @@ set cursorline
 " mappings
 map ; :
 map <leader>b :buffers<CR>
+map <leader>r :!rspec %<CR> 
+map <leader>c :Clam<space> 
 imap kj <Esc>
 
 " if pathogen is there, execute it
