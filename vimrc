@@ -10,6 +10,8 @@ set autoindent
 " language-specific indentation
 autocmd BufRead,BufNewFile   *.rb set softtabstop=2
 autocmd BufRead,BufNewFile   *.go set noexpandtab
+autocmd BufRead,BufNewFile   *.hal,*.json set syntax=javascript
+
 
 " leaders
 let mapleader=","
@@ -29,6 +31,7 @@ set number
 syntax on
 set hlsearch
 set cursorline
+highlight CursorLine cterm=NONE ctermbg=234
 
 " mappings
 map ; :
@@ -78,20 +81,4 @@ else
   " Find all files in all non-dot directories starting in the working directory.
   " Fuzzy select one of those. Open the selected file with :e.
   nnoremap <leader>t :call SelectaCommand("find * -type f", "", ":e")<cr>
-
-
-  if has("unix")
-    let s:uname = system("uname")
-    if s:uname == "Darwin"
-      let os="mac"
-      " cursorline coloring in terminal vim
-      highlight CursorLine cterm=NONE ctermbg=234
-    else
-      let os="unix"
-      " cursorline coloring in terminal vim
-      highlight CursorLine cterm=NONE ctermbg=DarkGray
-    endif
-  endif
 endif
-
-
