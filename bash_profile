@@ -23,6 +23,7 @@ export VAGRANT_DEFAULT_PROVIDER=vmware_fusion
 alias lsl="ls | grep '^[a-z]'"
 alias ls3="ls | grep '^...$'"
 alias lsu="ls | grep '^[A-Z]'"
+alias be="bundle exec" # Bundler sucks
 
 # colors
 red="\[\033[1;31m\]"

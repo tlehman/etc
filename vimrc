@@ -36,12 +36,9 @@ highlight CursorLine cterm=NONE ctermbg=234
 " mappings
 map ; :
 map <leader>b :buffers<CR>
-map <leader>r :!rspec %<CR> 
 map <leader>c :Clam<space> 
 imap kj <Esc>
 
-" delete single character, preserve buffer
-map x :let @s=@"<cr>"tdl:let @"=@s<cr>
 
 " if pathogen is there, execute it
 if filereadable(expand("~/.vim/autoload/pathogen.vim"))
