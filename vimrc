@@ -46,7 +46,6 @@ if filereadable(expand("~/.vim/autoload/pathogen.vim"))
   execute pathogen#infect()
 endif
 
-
 " fuzzy search using selecta(1)
 " Run a given vim command on the results of fuzzy selecting from a given shell
 " command. See usage below.

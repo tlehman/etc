@@ -5,13 +5,13 @@ export HISTSIZE=100000000 # 1e8 (10 million)
 export GOPATH=~/go
 export PATH=~/bin:$GOPATH/bin:~/.rbenv/shims:$PATH
 export GPG_TTY=`tty`
-
+source ~/.api_env
 
 # OS specific stuff
-if [ $(uname) = "Linux" ]; then
+if [ "$(uname)" = "Linux" ]; then
     # turn CAPS LOCK into Control on Linux
     setxkbmap -layout us -option ctrl:nocaps
-elif [ $(uname) = "Darwin" ]; then
+elif [ "$(uname)" = "Darwin" ]; then
     source /usr/local/Cellar/rbenv/0.4.0/completions/rbenv.bash
     source /usr/local/etc/bash_completion.d/git-completion.bash
 fi
