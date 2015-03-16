@@ -31,7 +31,7 @@ set number
 syntax on
 set hlsearch
 set cursorline
-highlight CursorLine cterm=NONE ctermbg=234
+highlight CursorLine cterm=NONE ctermfg=NONE ctermbg=234
 
 " mappings
 map ; :

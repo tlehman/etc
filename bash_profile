@@ -53,9 +53,6 @@ function git_repo_dirty() {
   fi
 }
 
-# rbenv environment
-echo 'eval "$(rbenv init -)"' >> ~/.bash_profile
-
 # command prompt
 git_branch_if_applicable=""
 export PS1="$(whoami)@$(hostname -s):$yellow\$(pwd_short)$closecolor$green\$(parse_git_branch)$closecolor$red\$(git_repo_dirty)$closecolor $ "
@@ -71,6 +68,3 @@ hitch() {
   if [[ -s "$HOME/.hitch_export_authors" ]] ; then source "$HOME/.hitch_export_authors" ; fi
 }
 alias unhitch='hitch -u'
-
-eval "$(rbenv init -)"
-eval "$(rbenv init -)"
