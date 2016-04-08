@@ -55,7 +55,7 @@ function git_repo_dirty() {
 
 # command prompt
 git_branch_if_applicable=""
-export PS1="$(whoami)@$(hostname -s):$yellow\$(pwd_short)$closecolor$green\$(parse_git_branch)$closecolor$red\$(git_repo_dirty)$closecolor $ "
+export PS1="$(whoami)@$(hostname -s):\$(pwd_short)\$(parse_git_branch)\$(git_repo_dirty)"
 
 # hitch stuff
 

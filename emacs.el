@@ -1,46 +1,7 @@
 ;; tlehman's .emacs file
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;       KEYBOARD                                                             ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(global-set-key (kbd "C-c C-e") 'eval-buffer)
-(global-set-key (kbd "C-z") 'undo)
-(global-set-key (kbd "C-<tab>") 'next-buffer)
-(global-set-key (kbd "C-S-<tab>") 'previous-buffer)
-;; for traversing through a universe of parens
-(global-set-key (kbd "C-%") 'backward-list)
-(global-set-key (kbd "C-5") 'forward-list)
-(global-set-key (kbd "<f5>") 'compile)
-(global-set-key (kbd "C-<f5>") 'compile-rspec)
-
-(setq mac-command-modifier 'meta)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;       EVIL                                                                 ;; 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(require 'package)
-(push '("marmalade" . "http://marmalade-repo.org/packages/") package-archives)
-(push '("melpa" . "http://melpa.milkbox.net/packages/") package-archives)
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;       APPEARANCE                                                           ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(set-face-attribute 'default nil :height 150)
-(set-face-attribute 'default nil :font "Inconsolata 14")
-
-(global-hl-line-mode 1)
-
-(set-background-color "#222222")
-(set-foreground-color "white")
-(set-face-background 'hl-line "#333333")
-
-;; The use of auto-fill-mode is so that lines don't get longer than 70
-;; characters, because wrapping is annoying, but so is manually
-;; managing the length of the line, therefore, the Editor shall do it.
-(auto-fill-mode)
-
 (require 'ansi-color)
 (defun colorize-compilation-buffer ()
   (let ((inhibit-read-only t))
@@ -48,60 +9,14 @@
 (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;       WINDOW MANAGEMENT                                                    ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; winner-mode reemembers your previous window configurations
-(when (fboundp 'winner-mode)
-  (winner-mode 1))
-
-;; numbered windows 
-(require 'window-number)
-(window-number-meta-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;       INITIALIZATION                                                       ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;(load-file "~/.emacs.d/vendor/graphviz-dot-mode.el")
-
-(setq inhibit-splash-screen t)
-(setq initial-scratch-message ";; Don't Panic.\n\n(floor (* 6 (sqrt 49.0)))")
-
-(defun set-exec-path-from-shell-PATH ()
-  (let ((path-from-shell (replace-regexp-in-string
-                          "[ \t\n]*$"
-                          ""
-                          (shell-command-to-string 
-			   "$SHELL --login -i -c 'echo $PATH'"))))
-    (setenv "PATH" path-from-shell)
-    (setq eshell-path-env path-from-shell) ; for eshell users
-    (setq exec-path (split-string path-from-shell path-separator))))
-
-(if window-system 
-    (progn
-      (set-exec-path-from-shell-PATH)
-      (tool-bar-mode -1)))
-
-(defun split-shell-toggle ()
-  (interactive)
-  (split-window-vertically)
-  (eshell)
-  (other-window))
-
-  
-
-(global-set-key (kbd "<f3>") 'split-shell-toggle)
-
 ;; Run in server mode so that other processes can spawn emacs 
 ;; buffers in this instance 
 (server-start)
-
-(auto-fill-mode)
-
-(column-number-mode)
-
-(setq-default tab-width 4)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;       HASKELL                                                              ;;
@@ -128,20 +43,6 @@
 					    (buffer-file-name)))))
     (compile (concat "cd " path-name " && bundle exec rspec -fd " spec-name))))
 
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;       SCHEME STUFF                                                         ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; 
-
-(global-font-lock-mode 1)
-
-;;; Also highlight parens
-(setq show-paren-delay 0
-      show-paren-style 'parenthesis)
-(show-paren-mode 1)
-
-(setq scheme-program-name "\/usr\/local\/bin\/scheme")
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -226,27 +127,6 @@ copies the full path of the file into OSX's global clipboard (called
   (shell-command
    (concat "display <(dot " buffer-file-name " -Tsvg)")))
 
-; interactive do
-(require 'ido)
-(ido-mode t)
-(put 'erase-buffer 'disabled nil)
-(put 'upcase-region 'disabled nil)
-
-; recent files
-(require 'recentf)
-(setq recentf-max-saved-items 200
-      recentf-max-menu-items 15)
-(recentf-mode +1)
-
-(defun recentf-ido-find-file ()
-  "find recent file using ido"
-  (interactive)
-  (let ((file (ido-completing-read "Choose recent file: " recentf-list
-				   nil t)))
-    (when file
-      (find-file file))))
-
-(global-set-key (kbd "C-c C-f") 'recentf-ido-find-file)
 
 
 
@@ -258,25 +138,6 @@ copies the full path of the file into OSX's global clipboard (called
   (message "%d characters long" (- (region-end) (region-beginning))))
 
 
-;; git stuff
-(setq magit-auto-revert-mode nil)
-(setq magit-last-seen-setup-instructions "1.4.0")
-
-(require 'evil)
-(require 'projectile-rails)
-
-(global-set-key (kbd "C-x p") 'find-file-in-project)
-
-(defgroup evil-rails nil
-  "Evil Rails customizations."
-  :prefix "evil-rails-"
-  :group 'evil-rails)
-
-
-
-(evil-mode 1)
-(key-chord-define evil-insert-state-map  "jk" 'evil-normal-state)
-
 (eval-after-load "evil-maps"
   (dolist (map '(evil-motion-state-map
                  evil-insert-state-map
@@ -287,8 +148,6 @@ copies the full path of the file into OSX's global clipboard (called
 (define-key evil-normal-state-map "\t" 'compile-rspec)
 
 
-(require 'key-chord)
-(key-chord-mode 1)
 
 ;; allow for export=>beamer by placing
 
@@ -296,6 +155,9 @@ copies the full path of the file into OSX's global clipboard (called
 ;;       BEAMER                                                               ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; #+LaTeX_CLASS: beamer in org files
+
+(setq org-src-preserve-indentation t)
+
 (unless (boundp 'org-export-latex-classes)
   (setq org-export-latex-classes nil))
 (add-to-list 'org-export-latex-classes
@@ -361,15 +223,3 @@ copies the full path of the file into OSX's global clipboard (called
              '("" "tikz" t))
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;       GOLDSTAR                                                             ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun gs ()
-  (interactive)
-  (cd "~/src/gs/goldstar"))
-
-(defun bus ()
-  (interactive)
-  (switch-to-buffer-other-window "*bus*")
-  (erase-buffer)
-  (insert (shell-command-to-string "~/.bitbar/bus.sh")))
