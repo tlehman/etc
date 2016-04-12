@@ -1041,5 +1041,3 @@
   fundamental-mode "Common words"
   "Major mode for writing using 1000 most common words"
   (add-hook 'post-self-insert-hook 'kill-last-word-if-uncommon nil t))
-
-
