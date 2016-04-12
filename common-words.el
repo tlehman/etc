@@ -1030,6 +1030,14 @@
 
 (defun kill-last-word-if-uncommon ()
   (interactive)
-  (if (not (is-common-word (word-before-point)))
+  (if (and (not (is-common-word (word-before-point)))
+           (or (equal 10 (char-before (point)))
+               (equal 32 (char-before (point)))))
       (backward-kill-word 1)))
+
+
+(define-derived-mode common-word-mode
+  fundamental-mode "Common words"
+  "Major mode for writing using 1000 most common words"
+  (add-hook 'post-self-insert-hook 'kill-last-word-if-uncommon))
 
