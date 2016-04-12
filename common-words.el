@@ -13,6 +13,7 @@
 
 ; Data source: https://github.com/first20hours/google-10000-english
 
+(puthash "the" t common-words)
 (puthash "of" t common-words)
 (puthash "and" t common-words)
 (puthash "to" t common-words)
@@ -1039,5 +1040,6 @@
 (define-derived-mode common-word-mode
   fundamental-mode "Common words"
   "Major mode for writing using 1000 most common words"
-  (add-hook 'post-self-insert-hook 'kill-last-word-if-uncommon))
+  (add-hook 'post-self-insert-hook 'kill-last-word-if-uncommon nil t))
+
 
