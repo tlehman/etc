@@ -3,10 +3,13 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; #+LaTeX_CLASS: beamer in org files
 
+(require 'ox-latex)
+
 (setq org-src-preserve-indentation t)
 
 (unless (boundp 'org-export-latex-classes)
   (setq org-export-latex-classes nil))
+
 (add-to-list 'org-export-latex-classes
   ;; beamer class, for presentations
   '("beamer"
@@ -31,11 +34,11 @@
   commentstyle=\\color{red},
   }\n
       \\usepackage{verbatim}\n
-      \\institute{{{{beamerinstitute}}}}\n          
+      \\institute{{{{beamerinstitute}}}}\n
        \\subject{{{{beamersubject}}}}\n"
 
      ("\\section{%s}" . "\\section*{%s}")
-     
+
      ("\\begin{frame}[fragile]\\frametitle{%s}"
        "\\end{frame}"
        "\\begin{frame}[fragile]\\frametitle{%s}"
@@ -43,22 +46,19 @@
 
   ;; letter class, for formal letters
 
-  (add-to-list 'org-export-latex-classes
+(add-to-list 'org-export-latex-classes
+             '("letter"
+               "\\documentclass[11pt]{letter}\n \\usepackage[utf8]{inputenc}\n \\usepackage[T1]{fontenc}\n \\usepackage{color}"
+               ("\\section{%s}" . "\\section*{%s}")
+               ("\\subsection{%s}" . "\\subsection*{%s}")
+               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+               ("\\paragraph{%s}" . "\\paragraph*{%s}")
+               ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 
-  '("letter"
-     "\\documentclass[11pt]{letter}\n
-      \\usepackage[utf8]{inputenc}\n
-      \\usepackage[T1]{fontenc}\n
-      \\usepackage{color}"
-     
-     ("\\section{%s}" . "\\section*{%s}")
-     ("\\subsection{%s}" . "\\subsection*{%s}")
-     ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-     ("\\paragraph{%s}" . "\\paragraph*{%s}")
-     ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
-
-(require 'ox-latex)
 (add-to-list 'org-latex-packages-alist '("" "minted"))
+(add-to-list 'org-latex-packages-alist
+             '("" "tikz" t))
+
 (setq org-latex-listings 'minted)
 
 (setq org-latex-pdf-process
@@ -66,6 +66,4 @@
         "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
         "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
 
-(add-to-list 'org-latex-packages-alist
-             '("" "tikz" t))
 
