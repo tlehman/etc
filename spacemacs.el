@@ -285,6 +285,37 @@ you should place you code here."
   (display-time)
   (setq display-time-day-and-date t)
 
+
+  (defvar devlog-file "~/sync/devlog.org")
+
+  (defun devlog-file-exists ()
+    (and (file-exists-p devlog-file)
+         (file-writable-p devlog-file)))
+
+  (defun devlog-current-date-exists ()
+    "Checks if there is a headline for the current date in the `devlog-file'"
+    (> (length
+        (let ((command (s-concat "grep '^* " (todays-date) "$' " devlog-file)))
+          (shell-command-to-string command)))
+       1))
+
+  (defun devlog-insert (notes)
+    "Insert free form notes into `devlog-file' under the current date's headline"
+    (if (devlog-file-exists)
+        (progn
+          (if (not (devlog-current-date-exists))
+              (append-to-file (s-concat "* " (todays-date) "\n") 0 devlog-file))
+          (append-to-file (s-concat "\n" notes) 0 devlog-file))))
+
+  (defun devlog-interactive-insert ()
+    "Insert free form notes interactively
+   into `devlog-file' under the current date's headline"
+    (interactive)
+    (let ((input (read-string "NOTES: ")))
+      (devlog-insert input)))
+
+
+(define-key evil-normal-state-map "  " 'devlog-interactive-insert)
   (defun eww-disable-images ()
     "Block all images in eww emacs web session"
     (interactive)
@@ -317,7 +348,7 @@ you should place you code here."
       (define-key (eval map) "\C-e" nil)))
 
   (define-key evil-normal-state-map "tt" 'projectile-toggle-between-implementation-and-test)
-  (define-key evil-normal-state-map "\\" 'compile-rspec) 
+  (define-key evil-normal-state-map "\\" 'compile-rspec)
 
   )
 
