@@ -23,7 +23,7 @@ values."
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-      ;; better-defaults
+     ;; better-defaults
      emacs-lisp
      git
      haskell
@@ -36,8 +36,6 @@ values."
      ruby
      python
      tmux
-     scss
-     evil-rails
      shell
      ;; spell-checking
      ;; syntax-checking
@@ -257,10 +255,10 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place you code here."
-  ;(load "~/etc/beamer.el")
+                                        ;(load "~/etc/beamer.el")
   (setq mac-command-modifier 'meta)
 
-  (setq-default truncate-lines 1)
+  (setq-default truncate-lines nil)
 
   (defun todays-date ()
     (shell-command-to-string "echo -n $(date +\"%Y-%m-%d\")"))
@@ -274,7 +272,7 @@ you should place you code here."
     (insert "#+begin_src \n#+end_src")
     (dotimes (i 11) (move-point-visually -1)))
 
-  ; Language support in org-babel
+                                        ; Language support in org-babel
   (require 'ob-ruby)
   (require 'ob-python)
   (require 'org-habit)
@@ -284,7 +282,6 @@ you should place you code here."
 
   (display-time)
   (setq display-time-day-and-date t)
-
 
   (defvar devlog-file "~/sync/devlog.org")
 
@@ -305,7 +302,7 @@ you should place you code here."
         (progn
           (if (not (devlog-current-date-exists))
               (append-to-file (s-concat "* " (todays-date) "\n") 0 devlog-file))
-          (append-to-file (s-concat "\n" notes) 0 devlog-file))))
+          (append-to-file (s-concat "\n" notes "\n") 0 devlog-file))))
 
   (defun devlog-interactive-insert ()
     "Insert free form notes interactively
@@ -315,7 +312,6 @@ you should place you code here."
       (devlog-insert input)))
 
 
-(define-key evil-normal-state-map "  " 'devlog-interactive-insert)
   (defun eww-disable-images ()
     "Block all images in eww emacs web session"
     (interactive)
@@ -347,22 +343,8 @@ you should place you code here."
                    evil-emacs-state-map))
       (define-key (eval map) "\C-e" nil)))
 
+  (define-key evil-normal-state-map "  " 'devlog-interactive-insert)
   (define-key evil-normal-state-map "tt" 'projectile-toggle-between-implementation-and-test)
   (define-key evil-normal-state-map "\\" 'compile-rspec)
 
   )
-
-;; Do not write anything past this comment. This is where Emacs will
-;; auto-generate custom variable definitions.
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(shr-blocked-images ""))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
