@@ -272,6 +272,20 @@ you should place you code here."
     (insert "#+begin_src \n#+end_src")
     (dotimes (i 11) (move-point-visually -1)))
 
+  (defun org-wrap-region-in-code-block ()
+    "Insert #+begin_src at (region-beginning) and #+end_src after (region-end)"
+    ; Note that if we insert at the beginning first, we change the end point
+    (interactive)
+    (let ((p-begin (region-beginning))
+          (p-end (+ 2 (region-end))))
+      (progn
+        (goto-char p-end)
+        (insert "#+end_src")
+        (goto-char p-begin)
+        (insert "#+begin_src")
+        (newline)
+        )
+      ))
                                         ; Language support in org-babel
   (require 'ob-ruby)
   (require 'ob-python)
