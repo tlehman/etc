@@ -1,9 +1,14 @@
 # environment variables
+## PATH start
+QT_PATH=~/opt/Qt5.5.1/5.5/clang_64/bin
+export PATH=~/bin:$QT_PATH:~/.rbenv/shims:$PATH
+## PATH end
+
+alias be='bundle exec'
+
 export EDITOR=vim
 export CLICOLOR=yes
 export HISTSIZE=100000000 # 1e8 (10 million)
-export GOPATH=~/go
-export PATH=~/bin:$GOPATH/bin:~/.rbenv/shims:$PATH
 export GPG_TTY=`tty`
 source ~/.api_env
 
@@ -12,25 +17,17 @@ if [ "$(uname)" = "Linux" ]; then
     # turn CAPS LOCK into Control on Linux
     setxkbmap -layout us -option ctrl:nocaps
 elif [ "$(uname)" = "Darwin" ]; then
-    source /usr/local/Cellar/rbenv/0.4.0/completions/rbenv.bash
+    source /usr/local/Cellar/rbenv/1.0.0/completions/rbenv.bash
     source /usr/local/etc/bash_completion.d/git-completion.bash
+    alias wolfram=/Applications/Mathematica.app/Contents/MacOS/MathKernel
 fi
 
-# vm tools
-export VAGRANT_DEFAULT_PROVIDER=vmware_fusion
-
-# aliases
-alias lsl="ls | grep '^[a-z]'"
-alias ls3="ls | grep '^...$'"
-alias lsu="ls | grep '^[A-Z]'"
-alias be="bundle exec" # Bundler sucks
-
 # colors
-red="\[\033[1;31m\]"
-yellow="\[\033[1;33m\]"
-green="\[\033[1;32m\]"
-blue="\[\033[34m\]"
-closecolor="\[\033[0m\]"
+export red="\[\033[1;31m\]"
+export yellow="\[\033[1;33m\]"
+export green="\[\033[1;32m\]"
+export blue="\[\033[34;1m\]"
+export closecolor="\[\033[0m\]"
 
 # functions for command prompt
 function parse_git_branch() {
@@ -54,14 +51,12 @@ function git_repo_dirty() {
 }
 
 # command prompt
-git_branch_if_applicable=""
-export PS1="$(whoami)@$(hostname -s):\$(pwd_short)\$(parse_git_branch)\$(git_repo_dirty)"
-
-# hitch stuff
-
-# Add the following to your ~/.bashrc or ~/.zshrc
-#
-# Alternatively, copy/symlink this file and source in your shell.  See `hitch --setup-path`.
+nameathost="$green$(whoami)@$(hostname -s)$closecolor"
+function shell_git() {
+    echo "$(parse_git_branch)$(git_repo_dirty)"
+}
+# \w means PWD: http://unix.stackexchange.com/a/100961/14306
+export PS1="$nameathost:$blue\w$closecolor \$(shell_git)$ "
 
 hitch() {
   command hitch "$@"
