@@ -5,6 +5,8 @@ export PATH=~/bin:$QT_PATH:~/.rbenv/shims:$PATH
 ## PATH end
 
 alias be='bundle exec'
+alias lsl="ls | grep '^[a-z]'"
+alias lsu="ls | grep '^[A-Z]'"
 
 export EDITOR=vim
 export CLICOLOR=yes
