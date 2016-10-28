@@ -346,6 +346,17 @@ you should place you code here."
     (let ((input (read-string "NOTES: ")))
       (devlog-insert input)))
 
+  (defun devlog-dates ()
+    "Get recorded dates from `devlog-file'"
+    (mapcar (lambda (ds)
+              (mapcar 'string-to-number (s-split "-" ds)))
+            (s-split "\n" (devlog-string-dates))))
+
+  (defun devlog-string-dates ()
+    "Get recorded dates as strings from `devlog-file'"
+    (s-trim
+     (shell-command-to-string (concat "awk '/^\* 20..-/ {print $2}' " devlog-file))))
+
 
   (defun eww-disable-images ()
     "Block all images in eww emacs web session"
