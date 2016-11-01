@@ -1,12 +1,14 @@
 # environment variables
 ## PATH start
 QT_PATH=~/opt/Qt5.5.1/5.5/clang_64/bin
-export PATH=~/bin:$QT_PATH:~/.rbenv/shims:$PATH
+export PATH=~/bin:~/.cabal/bin:$QT_PATH:~/.rbenv/shims:$PATH
 ## PATH end
 
 alias be='bundle exec'
 alias lsl="ls | grep '^[a-z]'"
 alias lsu="ls | grep '^[A-Z]'"
+
+
 
 export EDITOR=vim
 export CLICOLOR=yes
@@ -18,6 +20,8 @@ source ~/.api_env
 if [ "$(uname)" = "Linux" ]; then
     # turn CAPS LOCK into Control on Linux
     setxkbmap -layout us -option ctrl:nocaps
+    alias pbcopy='xclip -selection clipboard'
+    alias pbpaste='xclip -selection clipboard -o'
 elif [ "$(uname)" = "Darwin" ]; then
     source /usr/local/Cellar/rbenv/1.0.0/completions/rbenv.bash
     source /usr/local/etc/bash_completion.d/git-completion.bash
