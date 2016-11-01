@@ -45,7 +45,7 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(org-trello gh-md google-c-style ein wolfram-mode)
+   dotspacemacs-additional-packages '(gh-md google-c-style ein wolfram-mode)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
@@ -261,12 +261,6 @@ you should place you code here."
 
   (setq-default truncate-lines nil)
 
-  (defun todays-date ()
-    (shell-command-to-string "echo -n $(date +\"%Y-%m-%d\")"))
-
-  (defun insert-todays-date()
-    (interactive)
-    (insert (todays-date)))
 
   (defun org-insert-code-block ()
     (interactive)
@@ -318,6 +312,26 @@ you should place you code here."
   (display-time)
   (setq display-time-day-and-date t)
 
+
+
+
+  (defun todays-date-string ()
+    (shell-command-to-string "echo -n $(date +\"%Y-%m-%d\")"))
+
+  (defun todays-date ()
+    (let ((ds (s-split "-" (todays-date-string))))
+      (mapcar 'string-to-number ds)))
+
+  (defun todays-year () (nth 0 (todays-date)))
+  (defun todays-month () (nth 1 (todays-date)))
+  (defun todays-day () (nth 2 (todays-date)))
+
+  (defun insert-todays-date()
+    (interactive)
+    (insert (todays-date-string)))
+
+
+
   (defvar devlog-file "~/sync/devlog.org")
 
   (defun devlog-file-exists ()
@@ -327,7 +341,7 @@ you should place you code here."
   (defun devlog-current-date-exists ()
     "Checks if there is a headline for the current date in the `devlog-file'"
     (> (length
-        (let ((command (s-concat "grep '^* " (todays-date) "$' " devlog-file)))
+        (let ((command (s-concat "grep '^* " (todays-date-string) "$' " devlog-file)))
           (shell-command-to-string command)))
        1))
 
@@ -336,7 +350,7 @@ you should place you code here."
     (if (devlog-file-exists)
         (progn
           (if (not (devlog-current-date-exists))
-              (append-to-file (s-concat "* " (todays-date) "\n") 0 devlog-file))
+              (append-to-file (s-concat "* " (todays-date-string) "\n") 0 devlog-file))
           (append-to-file (s-concat "\n" notes "\n") 0 devlog-file))))
 
   (defun devlog-interactive-insert ()
@@ -350,12 +364,19 @@ you should place you code here."
     "Get recorded dates from `devlog-file'"
     (mapcar (lambda (ds)
               (mapcar 'string-to-number (s-split "-" ds)))
-            (s-split "\n" (devlog-string-dates))))
+            (s-split "\n" (devlog-dates-string))))
 
-  (defun devlog-string-dates ()
+  (defun devlog-dates-string ()
     "Get recorded dates as strings from `devlog-file'"
     (s-trim
      (shell-command-to-string (concat "awk '/^\* 20..-/ {print $2}' " devlog-file))))
+
+  (defun devlog-dates-this-week ()
+    "All the devlog dates recorded for up to 7 days ago"
+    ()
+    )
+
+
 
 
   (defun eww-disable-images ()
