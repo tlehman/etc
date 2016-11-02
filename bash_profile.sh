@@ -9,6 +9,9 @@ alias lsl="ls | grep '^[a-z]'"
 alias lsu="ls | grep '^[A-Z]'"
 
 
+if [ -d /usr/local/cuda ]; then
+    export LD_LIBRARY_PATH=/usr/local/cuda/lib64
+fi
 
 export EDITOR=vim
 export CLICOLOR=yes
