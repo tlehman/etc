@@ -2,6 +2,18 @@
 
 This is where I keep some of my config files, and some emacs lisp files.
 
+## law: link types in org-mode
+When using the spacemacs.el file, a new link type will be available in org-mode.
+
+For example: typing [law:ORS/93.850](http://www.oregonlaws.org/ors/93.850) will 
+automatically link it to the relevant page on oregonlaws.org.
+
+Typing [law:USC/12/2605](https://www.law.cornell.edu/uscode/text/12/2605) will 
+automatically link to the relevant page on cornell.edu's copy of the U.S. Code.
+
+This is useful when taking notes that reference laws. I recently bought a house 
+and it's hard to get through a single page without some specific law being referenced.
+
 
 ## common-words.el
 

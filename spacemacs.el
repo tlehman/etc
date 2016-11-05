@@ -287,6 +287,7 @@ you should place you code here."
   (require 'ob-python)
   (require 'ob-plantuml)
   (require 'org-habit)
+  (require 'org)
 
   (defun org-babel-execute:scheme (body params)
     (let* ((tangle (cdr (assoc :tangle params)))
@@ -308,6 +309,17 @@ you should place you code here."
      (plantuml . t)))
 
   (setq org-plantuml-jar-path "/opt/plantuml.jar")
+
+
+  (org-add-link-type "law" 'org-law-open)
+  (defun org-law-open (path)
+    "Visit the website for law described by PATH"
+    (browse-url (law-url path)))
+  (defun law-url (path)
+    "Determine the url for the (Local, State, National or International) law reference"
+
+    (cond ((s-starts-with-p "ORS" path)  (s-concat "http://www.oregonlaws.org/" (s-downcase path)))
+          ((s-starts-with-p "USC" path) (s-concat "https://www.law.cornell.edu/uscode/text" (nth 1 (s-split "usc" (s-downcase path)))))))
 
   (display-time)
   (setq display-time-day-and-date t)
