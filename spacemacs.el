@@ -307,7 +307,7 @@ you should place you code here."
    '((python . t)
      (plantuml . t)))
 
-  (setq org-plantuml-jar-path "/usr/local/Cellar/plantuml/8048/plantuml.8048.jar")
+  (setq org-plantuml-jar-path "/opt/plantuml.jar")
 
   (display-time)
   (setq display-time-day-and-date t)
