@@ -286,7 +286,6 @@ you should place you code here."
   (require 'ob-ruby)
   (require 'ob-python)
   (require 'ob-plantuml)
-  (require 'org-habit)
   (require 'org)
 
   (defun org-babel-execute:scheme (body params)
