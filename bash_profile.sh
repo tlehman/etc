@@ -70,3 +70,41 @@ hitch() {
   if [[ -s "$HOME/.hitch_export_authors" ]] ; then source "$HOME/.hitch_export_authors" ; fi
 }
 alias unhitch='hitch -u'
+
+
+# docker-machine
+export DOCKER_API_VERSION=1.22
+
+# Docker cleanup shortcuts
+function docker-clean-exited() {
+    if [[ $(docker ps -a -q -f status=exited | wc -l) -eq 0 ]]; then
+        echo 'Exited docker containers are already clean.  :)'
+    else
+        docker rm -v $(docker ps -a -q -f status=exited)
+    fi
+}
+function docker-clean-images() {
+    if [[ $(docker images -f "dangling=true" | wc -l) -eq 0 ]]; then
+        echo 'Dangling docker images are already clean.  :)'
+    else
+        docker rmi $(docker images -f "dangling=true" -q)
+    fi
+}
+
+alias dc="$(which docker-compose)"
+
+function dcrun() {
+    docker_cmd="$(which docker-compose)"
+    container_name="$1"
+    shift
+    ${docker_cmd} run ${container_name} bash -c -l "$*"
+}
+
+function dbe() {
+    dcrun web "bundle exec $*"
+}
+
+alias docker-clean='docker-clean-exited; docker-clean-images'
+alias bp="bundle package --all --no-install"
+alias dcu="docker-compose up"
+alias dcd="docker-compose down"
