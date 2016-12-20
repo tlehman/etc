@@ -23,8 +23,6 @@ source ~/.api_env
 if [ "$(uname)" = "Linux" ]; then
     # turn CAPS LOCK into Control on Linux
     setxkbmap -layout us -option ctrl:nocaps
-    alias pbcopy='xclip -selection clipboard'
-    alias pbpaste='xclip -selection clipboard -o'
 elif [ "$(uname)" = "Darwin" ]; then
     source /usr/local/Cellar/rbenv/1.0.0/completions/rbenv.bash
     source /usr/local/etc/bash_completion.d/git-completion.bash
