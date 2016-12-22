@@ -334,9 +334,12 @@ you should place you code here."
    web-mode-css-indent-offset 2
    web-mode-code-indent-offset 2
    web-mode-attr-indent-offset 2)
-  2
 
-
+  (defun kill-buffers-not-visible ()
+    "Kill all buffers that are not visible in the frame"
+    (interactive)
+    (dolist (buf (buffer-list))
+      (unless (get-buffer-window buf 'visible) (kill-buffer buf))))
 
   (defun todays-date-string ()
     (shell-command-to-string "echo -n $(date +\"%Y-%m-%d\")"))
