@@ -1,7 +1,10 @@
 # environment variables
 ## PATH start
 QT_PATH=~/opt/Qt5.5.1/5.5/clang_64/bin
-export PATH=~/bin:~/.cabal/bin:$QT_PATH:~/.rbenv/shims:$PATH
+GO_PATH=~/go
+
+export PATH=~/bin:$GOPATH/bin:~/.cabal/bin:$QT_PATH:~/.rbenv/shims:$PATH
+
 ## PATH end
 
 alias be='bundle exec'
@@ -27,6 +30,7 @@ elif [ "$(uname)" = "Darwin" ]; then
     source /usr/local/Cellar/rbenv/1.0.0/completions/rbenv.bash
     source /usr/local/etc/bash_completion.d/git-completion.bash
     alias wolfram=/Applications/Mathematica.app/Contents/MacOS/MathKernel
+    export HOST_IP=$(ipconfig getifaddr en0)
 fi
 
 # colors

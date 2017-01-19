@@ -18,6 +18,8 @@ values."
    ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers
    '(
+     go
+     python
      graphviz
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
@@ -323,9 +325,11 @@ you should place you code here."
 
   (display-time)
   (setq display-time-day-and-date t)
-
+  (setq confirm-kill-emacs 'y-or-n-p)
+  (setq tab-width 2)
   ; JS stuff
   (setq-default
+   tab-width 2
    ;; js2-mode
    js2-basic-offset 2
    ;; web-mode
