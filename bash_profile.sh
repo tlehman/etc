@@ -1,7 +1,7 @@
 # environment variables
 ## PATH start
 QT_PATH=~/opt/Qt5.5.1/5.5/clang_64/bin
-GO_PATH=~/go
+export GOPATH=~/go
 
 export PATH=~/bin:$GOPATH/bin:~/.cabal/bin:$QT_PATH:~/.rbenv/shims:$PATH
 
