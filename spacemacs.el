@@ -421,6 +421,14 @@ you should place you code here."
   (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
 
 
+  (defun org-to-remark ()
+    "org-mode all the things, then export to markdown for remark js"
+    (interactive)
+    (let ((md-file (org-md-export-to-markdown)))
+      (shell-command (s-concat "../generate.rb " md-file)))
+    )
+
+
   (defun compile-or-run-tests ()
     "run rspec on current file"
     (interactive)
