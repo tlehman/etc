@@ -22,17 +22,6 @@ export HISTSIZE=100000000 # 1e8 (10 million)
 export GPG_TTY=`tty`
 source ~/.api_env
 
-# OS specific stuff
-if [ "$(uname)" = "Linux" ]; then
-    # turn CAPS LOCK into Control on Linux
-    setxkbmap -layout us -option ctrl:nocaps
-elif [ "$(uname)" = "Darwin" ]; then
-    source /usr/local/Cellar/rbenv/1.0.0/completions/rbenv.bash
-    source /usr/local/etc/bash_completion.d/git-completion.bash
-    alias wolfram=/Applications/Mathematica.app/Contents/MacOS/MathKernel
-    export HOST_IP=$(ipconfig getifaddr en0)
-fi
-
 # colors
 export red="\[\033[1;31m\]"
 export yellow="\[\033[1;33m\]"
