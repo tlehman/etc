@@ -433,6 +433,11 @@ you should place you code here."
       (shell-command (s-concat "../generate.rb " md-file)))
     )
 
+  (defun org-insert-src-block ()
+    (interactive)
+    (insert "#+begin_src\n#+end_src")
+    (backward-char 10)
+    (insert " "))
 
   (defun compile-or-run-tests ()
     "run rspec on current file"
