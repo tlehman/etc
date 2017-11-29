@@ -1,16 +1,10 @@
 # environment variables
 ## PATH start
-QT_PATH=~/opt/Qt5.5.1/5.5/clang_64/bin
-export GOPATH=~/go
-
-export PATH=~/bin:$GOPATH/bin:~/.cabal/bin:$QT_PATH:~/.rbenv/shims:$PATH
+export PATH=~/bin:$PATH
 
 ## PATH end
 
-alias be='bundle exec'
-alias lsl="ls | grep '^[a-z]'"
-alias lsu="ls | grep '^[A-Z]'"
-
+export SUPPRESS_NO_CONFIG_WARNING=1
 
 if [ -d /usr/local/cuda ]; then
     export LD_LIBRARY_PATH=/usr/local/cuda/lib64
@@ -21,6 +15,16 @@ export CLICOLOR=yes
 export HISTSIZE=100000000 # 1e8 (10 million)
 export GPG_TTY=`tty`
 source ~/.api_env
+
+
+# OS specific stuff
+if [ "$(uname)" = "Linux" ]; then
+    # turn CAPS LOCK into Control on Linux
+    setxkbmap -layout us -option ctrl:nocaps
+elif [ "$(uname)" = "Darwin" ]; then
+    source /usr/local/etc/bash_completion.d/git-completion.bash
+    export HOST_IP=$(ipconfig getifaddr en0)
+fi
 
 # colors
 export red="\[\033[1;31m\]"
@@ -101,3 +105,10 @@ alias docker-clean='docker-clean-exited; docker-clean-images'
 alias bp="bundle package --all --no-install"
 alias dcu="docker-compose up"
 alias dcd="docker-compose down"
+
+alias gs='git status'
+alias gd='git diff'
+alias gdc='git diff --cached'
+alias gad='git add .'
+alias gl='git lg'
+
