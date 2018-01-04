@@ -365,7 +365,6 @@ you should place you code here."
     (insert (todays-date-string)))
 
 
-
   (defvar devlog-file "~/Dropbox/devlog.org")
 
   (defun devlog-file-exists ()
@@ -458,6 +457,14 @@ you should place you code here."
   (define-key evil-normal-state-map "  " 'devlog-interactive-insert)
   (define-key evil-normal-state-map "tt" 'projectile-toggle-between-implementation-and-test)
   (define-key evil-normal-state-map "\\" 'compile-or-run-tests)
+
+  (defun insert-now ()
+    (interactive)
+    (insert (shell-command-to-string "now | tr '\n' ' '")))
+
+
+ ;; insert the current date at point
+  (define-key evil-insert-state-map "\C-n" 'insert-now)
 
   )
 
