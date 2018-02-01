@@ -466,6 +466,9 @@ you should place you code here."
  ;; insert the current date at point
   (define-key evil-insert-state-map "\C-n" 'insert-now)
 
+  ;; utf8 characters
+  (define-key key-translation-map (kbd "<f9> <right>") (kbd "→"))
+
   )
 
 (custom-set-variables
