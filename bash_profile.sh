@@ -1,6 +1,6 @@
 # environment variables
 ## PATH start
-export PATH=~/bin:$PATH
+export PATH=~/go/bin:~/bin:$PATH
 
 ## PATH end
 
