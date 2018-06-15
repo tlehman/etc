@@ -390,11 +390,7 @@ you should place you code here."
 
   (defun devlog-insert (notes)
     "Insert free form notes into `devlog-file' under the current date's headline"
-    (if (devlog-file-exists)
-        (progn
-          (if (not (devlog-current-date-exists))
-              (append-to-file (s-concat "* " (todays-date-string) "\n") 0 devlog-file))
-          (append-to-file (s-concat "\n" notes "\n") 0 devlog-file))))
+    (shell-command (s-concat "devlog '" notes  "'\n")))
 
   (defun devlog-interactive-insert ()
     "Insert free form notes interactively
@@ -473,9 +469,7 @@ you should place you code here."
     (insert (shell-command-to-string "now | tr '\n' ' '")))
 
 
- ;; insert the current date at point
-  (when (derived-mode-p 'clojure-mode)
-    (define-key evil-insert-state-map "\C-j" 'cider-eval-print-last-sexp))
+  (define-key evil-insert-state-map "\C-j" 'cider-eval-print-last-sexp)
 
 
   ;; utf8 characters
