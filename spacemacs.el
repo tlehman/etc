@@ -327,6 +327,11 @@ you should place you code here."
 
 
 
+  (org-add-link-type "jira" 'org-jira-open)
+  (defun org-jira-open (ticket)
+    "Visit the website for Jira ticket described by TICKET"
+    (browse-url (s-concat "https://jira.elemental.amazon.com/browse/" ticket)))
+
   (org-add-link-type "law" 'org-law-open)
   (defun org-law-open (path)
     "Visit the website for law described by PATH"
