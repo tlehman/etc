@@ -2,6 +2,30 @@
 
 This is where I keep some of my config files, and some emacs lisp files.
 
+## Clojure shortcuts
+### get the `lein test :only` command for the `deftest` at point
+
+```emacs-lisp
+(defun cider-current-deftest ()
+  "Get the name of the deftest at point"
+  (save-excursion
+    (end-of-defun)
+    (beginning-of-defun)
+    (when (re-search-forward "(deftest \\([^ \n\t]+\\)" (point-at-eol) t)
+      (let ((test-name (substring-no-properties (match-string 1))))
+        (message test-name)
+        test-name))))
+
+(defun lein-test-only-command ()
+  "Get the 'lein test :only $NAMESPACE/$TESTNAME' command"
+  (interactive)
+  (let ((ns (cider-current-ns))
+        (name (cider-current-deftest)))
+    (let ((cmd (concat "lein test :only " ns "/" name)))
+      (message cmd)
+      cmd)))
+```
+
 ## law: link types in org-mode
 When using the spacemacs.el file, a new link type will be available in org-mode.
 
