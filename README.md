@@ -19,7 +19,7 @@ This is where I keep some of my config files, and some emacs lisp files.
 (defun lein-test-only-command ()
   "Get the 'lein test :only $NAMESPACE/$TESTNAME' command"
   (interactive)
-  (let ((ns (cider-current-ns))
+  (let ((ns (substring-no-properties (cider-current-ns)))
         (name (cider-current-deftest)))
     (let ((cmd (concat "lein test :only " ns "/" name)))
       (message cmd)
