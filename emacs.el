@@ -19,12 +19,15 @@
 (when window-system (set-frame-size (selected-frame) 120 49))
 (global-hl-line-mode)
 (setq inhibit-startup-screen t)
-(dark-mode)
-
+(light-mode)
 
 ;; STARTUP
 (tab-bar-mode)
 (server-start)
+
+(if (file-exists-p "~/.emacs.d/puppet-mode.el")
+    (load-file "~/.emacs.d/puppet-mode.el"))
+
 ;; STARTUP FRAME CONFIG (where, how big?)
 (setq default-frame-alist
        '((height . 55)
@@ -40,6 +43,9 @@
       '(("." . "~/.emacs.backups.d")))
 (setq evil-default-state 'emacs)
 (evil-mode)
+(add-hook 'term-mode-hook #'evil-emacs-state)
+(add-hook 'eshell-mode-hook #'evil-emacs-state)
+
 
 ;; KEYBOARD MAPPING
 (defun new-tab-and-find-file ()
@@ -135,7 +141,7 @@
  '(custom-safe-themes
    '("e7ce09ff7426c9a290d06531edc4934dd05d9ea29713f9aabff834217dbb08e4" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" "8122fb61548fe36171d9cf24cdb9b5f24d053b626d4cda739c3815e080623209" "e80ef6dcd230438866130c6b3b48c05616a5fecfbc5a8169385367723f15fc61" "e9d47d6d41e42a8313c81995a60b2af6588e9f01a1cf19ca42669a7ffd5c2fde" default))
  '(package-selected-packages
-   '(ample-theme nlinum aircon-theme spacemacs-theme cider clojure-mode magit evil-visual-mark-mode dash)))
+   '(markdown-mode projectile llm ellama ample-theme nlinum aircon-theme spacemacs-theme treemacs cider clojure-mode magit evil-visual-mark-mode dash)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
